@@ -33,16 +33,80 @@ var _k = _interopRequireDefault(require("./k"));
 var _drawers = _interopRequireDefault(require("./widgets/drawers"));
 var _extendingForm = _interopRequireDefault(require("./widgets/extending-form"));
 var _tabs = _interopRequireDefault(require("./widgets/tabs"));
+var _checklist = _interopRequireDefault(require("./widgets/checklist"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 document.addEventListener("DOMContentLoaded", function () {
   (0, _k["default"])({
+    checklist: _checklist["default"],
     drawers: _drawers["default"],
     extendingForm: _extendingForm["default"],
     tabs: _tabs["default"]
   }, document);
 });
 
-},{"./k":1,"./widgets/drawers":3,"./widgets/extending-form":4,"./widgets/tabs":5}],3:[function(require,module,exports){
+},{"./k":1,"./widgets/checklist":3,"./widgets/drawers":4,"./widgets/extending-form":5,"./widgets/tabs":6}],3:[function(require,module,exports){
+"use strict";
+
+function checklist(widget) {
+  var parentCheckbox = widget.querySelector("[kjs-role=parent-box]");
+  var childCheckboxes = widget.querySelectorAll("[kjs-role=child-box]");
+  function handleParentChange(e) {
+    if (e.target.checked) {
+      handleParentCheck(e);
+    } else {
+      handleParentUncheck(e);
+    }
+  }
+  function handleParentCheck() {
+    childCheckboxes.forEach(function (checkbox) {
+      checkbox.checked = true;
+    });
+  }
+  function handleParentUncheck() {
+    childCheckboxes.forEach(function (checkbox) {
+      checkbox.checked = false;
+    });
+  }
+  function handleChildChange(e) {
+    if (e.target.checked) {
+      handleChildCheck(e);
+    } else {
+      handleChildUncheck(e);
+    }
+  }
+  function handleChildCheck() {
+    var checked_length = widget.querySelectorAll("[kjs-role=child-box]:checked").length;
+    var total_length = widget.querySelectorAll("[kjs-role=child-box]").length;
+    if (checked_length === total_length) {
+      parentCheckbox.checked = true;
+    }
+  }
+  function handleChildUncheck() {
+    var checked_length = widget.querySelectorAll("[kjs-role=child-box]:checked").length;
+    if (checked_length === 0) {
+      parentCheckbox.checked = false;
+    }
+  }
+  var actions = [];
+  actions.push({
+    element: parentCheckbox,
+    event: 'change',
+    handler: handleParentChange
+  });
+  childCheckboxes.forEach(function (checkbox) {
+    actions.push({
+      element: checkbox,
+      event: 'change',
+      handler: handleChildChange
+    });
+  });
+  return {
+    actions: actions
+  };
+}
+module.exports = checklist;
+
+},{}],4:[function(require,module,exports){
 "use strict";
 
 function accordion(widget) {
@@ -72,7 +136,7 @@ function accordion(widget) {
 }
 module.exports = accordion;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 
 function extendingForm(widget) {
@@ -99,7 +163,7 @@ function extendingForm(widget) {
 }
 module.exports = extendingForm;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 
 function tabs(widget) {

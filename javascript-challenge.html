@@ -70,7 +70,18 @@
 
     <section class="example">
       <h2>Linked Checkboxes</h2>
-      TODO
+      <div kjs-type="checklist">
+        <input type="checkbox" kjs-role="parent-box" id="all" name="all" value="all">
+        <label for="all"> Mark All</label><br>
+        <div class="child-boxes">
+          <input type="checkbox" kjs-role="child-box" id="task1" name="task1" value="laundry">
+          <label for="task1"> Do laundry</label><br>
+          <input type="checkbox" kjs-role="child-box" id="task2" name="task2" value="dishes">
+          <label for="task2"> Wash dishes</label><br>
+          <input type="checkbox" kjs-role="child-box" id="task3" name="task3" value="cooking">
+          <label for="task3"> Cook dinner</label><br>
+        </div>
+      </div>
     </section>
 
   </body>

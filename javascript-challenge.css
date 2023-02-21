@@ -26,6 +26,12 @@ section.example {
     padding: 6px;
     border-bottom: 1px solid #C3EBEE; }
 
+[kjs-type=checklist] .child-boxes {
+  margin-left: 10px; }
+
+[kjs-type=checklist] label {
+  display: inline; }
+
 [kjs-role=drawer] {
   background-color: #00B7BD;
   color: white; }

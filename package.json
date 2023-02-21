@@ -20,7 +20,8 @@
     "build:scss": "node-sass --include-path styles styles/_.scss javascript-challenge.css",
     "watch:js": "nodemon -e js -i javascript-challenge.js -x 'npm run build:js'",
     "watch:scss": "nodemon -e scss -x 'npm run build:scss'",
-    "watch": "nodemon -e js,scss -i javascript-challenge.js -x 'npm run build'"
+    "watch": "nodemon -e js,scss -i javascript-challenge.js -x 'npm run build'",
+    "start": "node javascript-challenge.js"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
